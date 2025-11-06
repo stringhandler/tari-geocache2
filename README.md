@@ -217,9 +217,6 @@ Contributions are welcome! Please ensure:
 - Security best practices are maintained
 - No sensitive data is committed
 
-## License
-
-[Your License Here]
 
 ## Acknowledgments
 
