@@ -1,4 +1,4 @@
-# Tari Geocache
+# Tari Private Geocache
 
 A web-based geocaching application built on the Tari blockchain. Create geocaches with Tari wallet addresses, allowing visitors to leave messages by sending transactions. Each transaction creates a guestbook entry that's displayed on the geocache page.
 
