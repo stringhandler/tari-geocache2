@@ -1,0 +1,62 @@
+{
+  "db_name": "SQLite",
+  "query": "\n        SELECT id, name, description, latitude, longitude, view_key, spend_pub_key,\n               datetime(created_at) as created_at\n        FROM geocaches\n        WHERE id = ?\n        ",
+  "describe": {
+    "columns": [
+      {
+        "name": "id",
+        "ordinal": 0,
+        "type_info": "Int64"
+      },
+      {
+        "name": "name",
+        "ordinal": 1,
+        "type_info": "Text"
+      },
+      {
+        "name": "description",
+        "ordinal": 2,
+        "type_info": "Text"
+      },
+      {
+        "name": "latitude",
+        "ordinal": 3,
+        "type_info": "Float"
+      },
+      {
+        "name": "longitude",
+        "ordinal": 4,
+        "type_info": "Float"
+      },
+      {
+        "name": "view_key",
+        "ordinal": 5,
+        "type_info": "Text"
+      },
+      {
+        "name": "spend_pub_key",
+        "ordinal": 6,
+        "type_info": "Text"
+      },
+      {
+        "name": "created_at",
+        "ordinal": 7,
+        "type_info": "Text"
+      }
+    ],
+    "parameters": {
+      "Right": 1
+    },
+    "nullable": [
+      false,
+      false,
+      true,
+      true,
+      true,
+      false,
+      false,
+      true
+    ]
+  },
+  "hash": "1ba270c96bd0223bc926e7667517f5621be14ada6999b38acdd3ecef3077b745"
+}

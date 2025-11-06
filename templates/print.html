@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Print Address - {name}</title>
+    <style>
+        @page {
+            size: A4;
+            margin: 20mm;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            padding: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .print-container {
+            border: 3px solid #667eea;
+            border-radius: 12px;
+            padding: 40px;
+            background: white;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 30px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 36px;
+            margin-bottom: 10px;
+        }
+
+        .short-id {
+            font-size: 24px;
+            color: #666;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+
+        .description {
+            color: #666;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+
+        .coordinates {
+            color: #888;
+            font-size: 14px;
+            font-family: monospace;
+        }
+
+        .address-section {
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 6px solid #667eea;
+        }
+
+        .address-content {
+            display: grid;
+            grid-template-columns: 1fr auto;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .label {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .address {
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            color: #333;
+            word-break: break-all;
+            line-height: 1.8;
+            padding: 15px;
+            background: white;
+            border-radius: 6px;
+            border: 2px solid #e0e0e0;
+        }
+
+        .qr-container {
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        #qrcode {
+            display: inline-block;
+            padding: 10px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+        }
+
+        #qrcode canvas,
+        #qrcode img {
+            display: block;
+            margin: 0 auto;
+        }
+
+        .qr-label {
+            font-size: 11px;
+            color: #888;
+            margin-top: 8px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        @media print {
+            .address-content {
+                grid-template-columns: 1fr auto;
+            }
+        }
+
+        .instructions {
+            margin-top: 40px;
+            padding: 20px;
+            background: #fff8e1;
+            border-radius: 8px;
+            border-left: 6px solid #ffa726;
+        }
+
+        .instructions h2 {
+            color: #f57c00;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            color: #666;
+            line-height: 2;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px solid #e0e0e0;
+            text-align: center;
+            color: #888;
+            font-size: 12px;
+        }
+
+        .no-print {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .no-print button {
+            padding: 12px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 0 10px;
+        }
+
+        .no-print button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        @media print {
+            body {
+                padding: 0;
+            }
+
+            .no-print {
+                display: none;
+            }
+
+            .print-container {
+                border: 3px solid #667eea;
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="no-print">
+        <button onclick="window.print()">🖨️ Print This Page</button>
+        <button onclick="window.history.back()">← Back</button>
+        <p>Print this page out and place it in the geocache!</p>
+    </div>
+
+    <div class="print-container">
+        <div class="header">
+            <h1>YOU FOUND A TARI GEOCACHE!</h1>
+            <p>Time to leave a message on the Tari Blockchain. Don't worry it's encrypted onchain and can only be viewed
+                on the
+                guestbook</p>
+            <div class="short-id">ID: {short_id}</div>
+            <div class="description">{description}</div>
+            {coordinates_html}
+        </div>
+
+        <div class="address-section">
+            <div class="label">Tari Address</div>
+            <div class="address-content">
+                <div>
+                    <div class="address">{tari_address}</div>
+                </div>
+                <div class="qr-container">
+                    <div id="qrcode"></div>
+                    <div class="qr-label">Scan to Copy</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h2>📱 How to Leave a Message</h2>
+            <ol>
+                <li>NOTE: DO NOT SHARE THIS ADDRESS ONLINE, PEOPLE SHOULD FIND IT IN REAL LIFE</li>
+                <li>Open your Tari wallet application</li>
+                <li>Send any amount of Tari to the address above</li>
+                <li>In the memo field, write your message or geocache log</li>
+                <li>Your message will appear in the online guestbook!</li>
+            </ol>
+        </div>
+
+        <div class="footer">
+            <p>Generated on {created_at}</p>
+            <p>Tari Geocache Server</p>
+        </div>
+    </div>
+
+    <!-- QR Code Library -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script>
+
+    <script>
+        // Generate QR code
+        const tariAddress = '{tari_address}';
+
+        window.onload = function () {
+            // Generate QR code
+            new QRCode(document.getElementById("qrcode"), {
+                text: tariAddress,
+                width: 150,
+                height: 150,
+                colorDark: "#000000",
+                colorLight: "#ffffff",
+                correctLevel: QRCode.CorrectLevel.H
+            });
+
+            // Auto-print option (uncomment to enable)
+            // setTimeout(() => window.print(), 500);
+        };
+    </script>
+</body>
+
+</html>
