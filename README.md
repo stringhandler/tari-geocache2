@@ -217,6 +217,9 @@ Contributions are welcome! Please ensure:
 - Security best practices are maintained
 - No sensitive data is committed
 
+## License
+
+This project is licensed under the BSD 3-Clause License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgments
 
