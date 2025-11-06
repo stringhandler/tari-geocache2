@@ -23,7 +23,7 @@ A web-based geocaching application built on the Tari blockchain. Create geocache
 ## Prerequisites
 
 - **Rust** (1.70+)
-- **Minotari Console Wallet** executable (for wallet scanning)
+- **Minotari** executable (for wallet scanning) (https://github.com/tari-project/minotari-cli)
 - **SQLite** (bundled with sqlx)
 
 ## Installation
